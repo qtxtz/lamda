@@ -220,6 +220,9 @@ OpenVPNProto = protos.OpenVPNProto
 ToastDuration = protos.ToastDuration
 Orientation = protos.Orientation
 
+AudioStreamType = protos.AudioStreamType
+PlayAudioProfile = protos.PlayAudioRequest
+
 # proxy request alias
 OpenVPNProfile = protos.OpenVPNConfigRequest
 GproxyProfile = protos.GproxyConfigRequest
@@ -1529,6 +1532,18 @@ class UtilStub(BaseServiceStub):
         """
         r = self.stub.beepBeep(protos.Empty())
         return r.value
+    def play_audio(self, file, type=AudioStreamType.AST_SYSTEM,
+                                        loop=1, interval=0):
+        """
+        播放 wav 音频
+        """
+        profile = PlayAudioProfile()
+        profile.file = file
+        profile.type = type
+        profile.loop = loop
+        profile.interval = interval
+        r = self.stub.playAudio(profile)
+        return r.value
     def show_toast(self, text, duration=ToastDuration.TD_SHORT):
         """
         在系统界面底部显示一个 Toast 消息
@@ -2300,6 +2315,10 @@ class Device(object):
         return self.stub("Util").reload(clean)
     def beep(self):
         return self.stub("Util").beep()
+    def play_audio(self, file, type=AudioStreamType.AST_SYSTEM,
+                                        loop=1, interval=0):
+        return self.stub("Util").play_audio(file, type=type, loop=loop,
+                                        interval=interval)
     def setprop(self, name, value):
         return self.stub("Util").setprop(name, value)
     def getprop(self, name):

@@ -10,6 +10,15 @@ enum ToastDuration {
         TD_LONG          = 1;
 }
 
+enum AudioStreamType {
+        AST_ALARM             = 0;
+        AST_MEDIA             = 1;
+        AST_NOTIFICATION      = 2;
+        AST_RING              = 3;
+        AST_SYSTEM            = 4;
+        AST_VOICE             = 5;
+}
+
 message TouchDown {
         int32 tid      = 1;
         int32 x        = 2;
@@ -89,4 +98,11 @@ message HexPatchItem {
 message HexPatchResponse {
         int32           count = 1;
         repeated HexPatchItem replaces = 2;
+}
+
+message PlayAudioRequest {
+        string          file = 1;
+        AudioStreamType type = 2;
+        int32           loop = 3;
+        int32           interval = 4;
 }

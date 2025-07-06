@@ -230,6 +230,7 @@ service Util {
     rpc setProp(SetPropRequest) returns (Boolean) {}
     rpc getProp(String) returns (String) {}
     rpc hexPatch(HexPatchRequest) returns (HexPatchResponse) {}
+    rpc playAudio(PlayAudioRequest) returns (Boolean) {}
 }
 
 service File {
